@@ -16,13 +16,13 @@ st.sidebar.image("https://i.pinimg.com/originals/1b/82/c4/1b82c4b515cb7f5d5f12e5
 
 # Define fixed ranges from UCI Data
 ranges = {
-    'fixed acidity': (3.80, 15.90),
-    'volatile acidity': (0.08, 1.58),
-    'citric acid': (0.00, 1.66),
-    'residual sugar': (0.60, 65.80),
+    'fixed.acidity': (3.80, 15.90),
+    'volatile.acidity': (0.08, 1.58),
+    'citric.acid': (0.00, 1.66),
+    'residual.sugar': (0.60, 65.80),
     'chlorides': (0.009, 0.611),
-    'free sulfur dioxide': (1.0, 289.0),
-    'total sulfur dioxide': (6, 440),
+    'free.sulfur.dioxide': (1.0, 289.0),
+    'total.sulfur.dioxide': (6, 440),
     'density': (0.987, 1.039),
     'pH': (2.72, 4.01),
     'sulphates': (0.22, 2.00),
