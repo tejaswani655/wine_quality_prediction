@@ -18,7 +18,7 @@ st.sidebar.image("https://i.pinimg.com/originals/1b/82/c4/1b82c4b515cb7f5d5f12e5
 ranges = {
     'fixed.acidity': (4.6, 15.9),
     'volatile.acidity': (0.12, 1.58),
-    'citric.acid': (0.0, 1.0),
+    'citric.acid': (0.00, 1.00),
     'residual.sugar': (0.9, 15.5),
     'chlorides': (0.012, 0.611),
     'free.sulfur.dioxide': (1.0, 72.0),
