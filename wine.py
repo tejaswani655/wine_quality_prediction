@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 # Load your trained ML model
-model = pickle.load(open("wine_model.pkl", "rb"))
+model = pickle.load(open("wine Quality.pkl", "rb"))
 
 # Title
 st.title("🍷 Wine Quality Prediction App")
