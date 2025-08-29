@@ -1,85 +1,43 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
-import random
-from sklearn.preprocessing import StandardScaler
 import pickle
-import time
 
-# ------------------------------
-# Title and Header
-# ------------------------------
+# Load trained model (make sure wine_model.pkl is in same folder)
+model = pickle.load(open("wine_model.pkl", "rb"))
+
+# Title
 st.title("🍷 Wine Quality Prediction App")
+st.write("Enter the wine characteristics below to predict its quality:")
 
-st.image("https://i.pinimg.com/originals/62/2d/cf/622dcf55a0b3d569f1e5a4c597c51401.gif")
+# Helper to safely parse floats from text input
+def get_float_input(label, default="0.0"):
+    val = st.text_input(label, value=default)
+    try:
+        return float(val)
+    except ValueError:
+        st.warning(f"⚠️ Please enter a valid number for {label}. Defaulting to {default}.")
+        return float(default)
 
-st.header("Model to predict Wine Quality", divider=True)
+# Collect all 11 features used in training
+fixed_acidity = get_float_input("Fixed Acidity", "7.0")
+volatile_acidity = get_float_input("Volatile Acidity", "0.7")
+citric_acid = get_float_input("Citric Acid", "0.0")
+residual_sugar = get_float_input("Residual Sugar", "1.9")
+chlorides = get_float_input("Chlorides", "0.076")
+free_sulfur_dioxide = get_float_input("Free Sulfur Dioxide", "11.0")
+total_sulfur_dioxide = get_float_input("Total Sulfur Dioxide", "34.0")
+density = get_float_input("Density", "0.9978")
+pH = get_float_input("pH", "3.51")
+sulphates = get_float_input("Sulphates", "0.56")
+alcohol = get_float_input("Alcohol", "9.4")
 
-st.subheader("""User must enter values for the following features:
-['fixed.acidity', 'volatile.acidity', 'citric.acid', 'residual.sugar', 
- 'chlorides', 'free.sulfur.dioxide', 'total.sulfur.dioxide', 
- 'density', 'pH', 'sulphates', 'alcohol']""")
-
-st.sidebar.title("Select Wine Features 🍷")
-st.sidebar.image("https://i.pinimg.com/originals/1b/82/c4/1b82c4b515cb7f5d5f12e534fdc4dbd1.jpg")
-
-# ------------------------------
-# Load Dataset (for ranges)
-# ------------------------------
-temp_df = pd.read_csv("wineQualityReds.csv")   # make sure dataset is uploaded with app
-col = ['fixed.acidity', 'volatile.acidity', 'citric.acid', 'residual.sugar',
-       'chlorides', 'free.sulfur.dioxide', 'total.sulfur.dioxide',
-       'density', 'pH', 'sulphates', 'alcohol']
-
-random.seed(42)
-
-
-# ------------------------------
-# Sidebar sliders for input
-# ------------------------------
-all_values = []
-
-for i in col:
-    min_value, max_value = temp_df[i].agg(['min','max'])
-    # Create slider for each feature
-    var = st.sidebar.slider(f"Select {i} value",
-                            float(min_value), float(max_value),
-                            float(random.uniform(min_value, max_value)))
-    all_values.append(var)
-
-# ------------------------------
-# Scaling input values
-# ------------------------------
-scaler = StandardScaler()
-scaler.fit(temp_df[col])   # fit on full dataset
-final_value = scaler.transform([all_values])
-
-# ------------------------------
-# Load trained model
-# ------------------------------
-with open("wine Quality.pkl", "rb") as f:
-    wine_model = pickle.load(f)
-
-# ------------------------------
-# Predict
-# ------------------------------
-prediction = wine_model.predict(final_value)[0]
-
-# Progress animation
-progress_bar = st.progress(0)
-placeholder = st.empty()
-placeholder.subheader("Predicting Wine Quality...")
-
-for i in range(100):
-    time.sleep(0.02)
-    progress_bar.progress(i + 1)
-
-placeholder.empty()
-
-# Display result
-if prediction > 0:
-    st.success(f"✅ Predicted Wine Quality: *{prediction}* (scale 0–10)")
-else:
-    st.warning("Invalid Wine Feature Values")
-
-st.markdown("Designed and developed by: *Tejaswani Raj and Peeyush Sheoran*")
+# Prediction button
+if st.button("Predict Quality"):
+    # Arrange inputs in the same order as training
+    features = np.array([[fixed_acidity, volatile_acidity, citric_acid,
+                          residual_sugar, chlorides, free_sulfur_dioxide,
+                          total_sulfur_dioxide, density, pH,
+                          sulphates, alcohol]])
+    
+    prediction = model.predict(features)
+    st.success(f"Predicted Wine Quality: {prediction[0]}")
