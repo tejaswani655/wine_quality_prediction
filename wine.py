@@ -16,8 +16,8 @@ st.image("https://i.pinimg.com/originals/62/2d/cf/622dcf55a0b3d569f1e5a4c597c514
 st.header("Model to predict Wine Quality", divider=True)
 
 st.subheader("""User must enter values for the following features:
-['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 
- 'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 
+['fixed.acidity', 'volatile.acidity', 'citric.acid', 'residual.sugar', 
+ 'chlorides', 'free.sulfur.dioxide', 'total.sulfur.dioxide', 
  'density', 'pH', 'sulphates', 'alcohol']""")
 
 st.sidebar.title("Select Wine Features 🍷")
@@ -27,8 +27,8 @@ st.sidebar.image("https://i.pinimg.com/originals/1b/82/c4/1b82c4b515cb7f5d5f12e5
 # Load Dataset (for ranges)
 # ------------------------------
 temp_df = pd.read_csv("wineQualityReds.csv")   # make sure dataset is uploaded with app
-col = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
-       'chlorides', 'free sulfur dioxide', 'total sulfur dioxide',
+col = ['fixed.acidity', 'volatile.acidity', 'citric.acid', 'residual.sugar',
+       'chlorides', 'free.sulfur.dioxide', 'total.sulfur.dioxide',
        'density', 'pH', 'sulphates', 'alcohol']
 
 random.seed(42)
