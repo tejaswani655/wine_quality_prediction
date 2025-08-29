@@ -26,7 +26,7 @@ st.sidebar.image("https://i.pinimg.com/originals/1b/82/c4/1b82c4b515cb7f5d5f12e5
 # ------------------------------
 # Load Dataset (for ranges)
 # ------------------------------
-temp_df = pd.read_csv("winequality-red.csv")   # make sure dataset is uploaded with app
+temp_df = pd.read_csv("wineQualityReds.csv")   # make sure dataset is uploaded with app
 col = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar',
        'chlorides', 'free sulfur dioxide', 'total sulfur dioxide',
        'density', 'pH', 'sulphates', 'alcohol']
@@ -57,7 +57,7 @@ final_value = scaler.transform([all_values])
 # ------------------------------
 # Load trained model
 # ------------------------------
-with open("wine_model.pkl", "rb") as f:
+with open("wine Quality.pkl", "rb") as f:
     wine_model = pickle.load(f)
 
 # ------------------------------
